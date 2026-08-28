@@ -1,0 +1,40 @@
+name: Update Instagram feed
+
+on:
+  workflow_dispatch: # manual run: Actions tab → "Update Instagram feed" → Run workflow
+  schedule:
+    - cron: "23 7 * * 1" # weekly, Mondays 07:23 UTC
+
+permissions:
+  contents: write # required to commit the updated feed
+
+concurrency:
+  group: instagram-feed
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Pillow (black-bar cropping for covers)
+        run: pip install pillow
+      - name: Fetch posts and update index.html
+        run: python3 tools/update_instagram.py
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USERNAME: ${{ vars.IG_USERNAME }}
+      - name: Commit changes
+        run: |
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No changes — feed already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/ig
+          git commit -m "Update Instagram feed ($(date -u +%Y-%m-%d))"
+          git push
