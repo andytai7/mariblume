@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f1e8">
   <title>mariblume &middot; Handgefertigte Handyketten aus K&ouml;ln</title>
   <meta name="description" content="Echt sch&ouml;ne Handyketten. Handgefertigt in K&ouml;ln: Holzperlen aus Deutschland. Bestellungen per E-Mail oder Instagram.">
   <meta property="og:title" content="mariblume &middot; Handgefertigte Handyketten">
@@ -18,13 +19,16 @@
       --ink: #3b2f27; --leaf: #66755a;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
     body { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-           background: var(--cream); color: var(--ink); line-height: 1.55; }
+           background: var(--cream); color: var(--ink); line-height: 1.55; overflow-wrap: break-word;
+           padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+    img { max-width: 100%; height: auto; }
     .wrap { max-width: 1060px; margin: 0 auto; padding: 0 20px; }
 
     header { text-align: center; padding: 48px 20px 24px; background: var(--sand); }
     header img.avatar { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; box-shadow: 0 3px 12px rgba(0,0,0,.12); }
-    header h1 { font-family: Georgia, "Times New Roman", serif; font-size: 2.6rem; color: var(--terra-dark); margin-top: 14px; letter-spacing: .5px; }
+    header h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 7vw, 2.6rem); color: var(--terra-dark); margin-top: 14px; letter-spacing: .5px; }
     header p.tag { color: var(--leaf); font-size: 1.05rem; margin-top: 4px; }
     .badge-row { margin-top: 14px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .badge { background: white; border: 1px solid #e3d8c8; border-radius: 999px; padding: 5px 14px; font-size: .82rem; color: var(--terra-dark); }
@@ -35,15 +39,16 @@
 
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; list-style: none; }
     .card { background: white; border: 1px solid #ece2d4; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(120,90,60,.06); display: flex; flex-direction: column; }
-    .card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+    .cardimg { display: block; width: 100%; border: 0; padding: 0; background: none; cursor: zoom-in; position: relative; }
+    .cardimg img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+    .photocount { position: absolute; right: 10px; bottom: 10px; background: rgba(59,47,39,.85); color: #fff; font-size: .75rem; padding: 3px 10px; border-radius: 999px; pointer-events: none; }
     .card-body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .card h3 { font-family: Georgia, serif; font-size: 1.05rem; color: var(--ink); }
     .price { color: var(--leaf); font-size: .9rem; }
-    .btn { margin-top: auto; display: inline-block; text-align: center; background: var(--terra); color: white; text-decoration: none; padding: 10px 14px; border-radius: 9px; font-size: .92rem; font-weight: 600; }
+    .btn { margin-top: auto; display: inline-block; text-align: center; background: var(--terra); color: white; text-decoration: none; padding: 12px 14px; min-height: 46px; line-height: 1.4; border-radius: 9px; font-size: .95rem; font-weight: 600; }
     .btn:hover { background: var(--terra-dark); }
     .btn.outline { background: white; color: var(--terra-dark); border: 1.5px solid var(--terra); }
     .btn.outline:hover { background: var(--sand); }
-    .btn.disabled { background: #cbbfae; color: #fff; cursor: default; pointer-events: none; }
 
     .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
     .step { background: white; border: 1px solid #ece2d4; border-radius: 14px; padding: 22px; }
@@ -51,13 +56,37 @@
     .step h3 { font-family: Georgia, serif; margin-bottom: 6px; }
     .step p { font-size: .94rem; color: #5c4f44; }
     a { color: var(--terra-dark); }
+    .paypalemail { display: inline-block; background: var(--sand); border: 1px dashed var(--terra); border-radius: 8px; padding: 4px 10px; margin-top: 6px; font-weight: 600; color: var(--terra-dark); }
 
     .contact { text-align: center; }
     .contact .btn { margin: 0 6px 10px; }
+    .contact p.paynote { max-width: 560px; margin: 6px auto 16px; color: #5c4f44; font-size: .94rem; }
 
     footer { background: var(--sand); padding: 30px 20px 42px; text-align: center; font-size: .88rem; color: #7a6a5d; }
     footer a { color: var(--terra-dark); }
     .legal { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e3d8c8; }
+
+    /* ---------- Lightbox ---------- */
+    #lightbox { position: fixed; inset: 0; background: rgba(20,14,10,.94); z-index: 100; display: none;
+                 align-items: center; justify-content: center; flex-direction: column; }
+    #lightbox.open { display: flex; }
+    #lightbox figure { margin: 0; max-width: 96vw; max-height: 78vh; display: flex; align-items: center; justify-content: center; }
+    #lbimg { max-width: 96vw; max-height: 78vh; border-radius: 10px; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+    #lbtitle { color: #f7f1e8; font-family: Georgia, serif; margin-top: 10px; font-size: 1.05rem; }
+    #lbcounter { position: absolute; top: calc(14px + env(safe-area-inset-top)); left: 16px; color: #cdbfae; font-size: .9rem; }
+    .lbx { position: absolute; background: rgba(247,241,232,.18); color: #f7f1e8; border: 0; border-radius: 50%;
+            width: 56px; height: 56px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .lbx:active { background: var(--terra); }
+    #lbclose { top: calc(14px + env(safe-area-inset-top)); right: 16px; }
+    #lbprev { left: calc(12px + env(safe-area-inset-left)); bottom: calc(24px + env(safe-area-inset-bottom)); }
+    #lbnext { right: calc(12px + env(safe-area-inset-right)); bottom: calc(24px + env(safe-area-inset-bottom)); }
+    body.lb-open { overflow: hidden; }
+
+    @media (max-width: 560px) {
+      section { padding: 30px 16px; }
+      .grid { gap: 14px; }
+      .contact .btn { display: block; margin: 10px auto; max-width: 340px; }
+    }
   </style>
 </head>
 <body>
@@ -77,114 +106,306 @@
 
     <section id="kollektion">
       <h2>Kollektion</h2>
-      <p class="sub">Jede Kette ist ein Unikat, von Hand aufgezogen in K&ouml;ln.</p>
+      <p class="sub">Jede Kette ist ein Unikat, von Hand aufgezogen in K&ouml;ln. Tipp: Ein Foto antippen zeigt alle Ansichten des Modells.</p>
       <div class="grid">
-        <article class="card">
-          <img src="assets/products/img-00.jpg" alt="Handgefertigte Handykette Handykette No. 01 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="0">
+          <button class="cardimg" type="button" data-index="0" aria-label="Alle Fotos von Handykette No. 01 ansehen">
+            <img src="assets/products/thumbs/p00-00.jpg" alt="Handgefertigte Handykette Handykette No. 01 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">4 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 01</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2001&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2001%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2001&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2001%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-01.jpg" alt="Handgefertigte Handykette Eclipsemania von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="1">
+          <button class="cardimg" type="button" data-index="1" aria-label="Alle Fotos von Eclipsemania ansehen">
+            <img src="assets/products/thumbs/p01-00.jpg" alt="Handgefertigte Handykette Eclipsemania von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Eclipsemania</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Eclipsemania&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Eclipsemania%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Eclipsemania&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Eclipsemania%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-02.jpg" alt="Handgefertigte Handykette Handykette No. 02 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="2">
+          <button class="cardimg" type="button" data-index="2" aria-label="Alle Fotos von Handykette No. 02 ansehen">
+            <img src="assets/products/thumbs/p02-00.jpg" alt="Handgefertigte Handykette Handykette No. 02 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">4 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 02</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2002&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2002%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2002&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2002%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-03.jpg" alt="Handgefertigte Handykette Handykette No. 03 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="3">
+          <button class="cardimg" type="button" data-index="3" aria-label="Alle Fotos von Handykette No. 03 ansehen">
+            <img src="assets/products/thumbs/p03-00.jpg" alt="Handgefertigte Handykette Handykette No. 03 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">4 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 03</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2003&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2003%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2003&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2003%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-04.jpg" alt="Handgefertigte Handykette Handykette No. 04 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="4">
+          <button class="cardimg" type="button" data-index="4" aria-label="Alle Fotos von Handykette No. 04 ansehen">
+            <img src="assets/products/thumbs/p04-00.jpg" alt="Handgefertigte Handykette Handykette No. 04 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">7 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 04</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2004&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2004%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2004&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2004%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-05.jpg" alt="Handgefertigte Handykette Handykette No. 05 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="5">
+          <button class="cardimg" type="button" data-index="5" aria-label="Alle Fotos von Handykette No. 05 ansehen">
+            <img src="assets/products/thumbs/p05-00.jpg" alt="Handgefertigte Handykette Handykette No. 05 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">3 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 05</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2005&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2005%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2005&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2005%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-06.jpg" alt="Handgefertigte Handykette Handykette No. 06 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="6">
+          <button class="cardimg" type="button" data-index="6" aria-label="Alle Fotos von Handykette No. 06 ansehen">
+            <img src="assets/products/thumbs/p06-00.jpg" alt="Handgefertigte Handykette Handykette No. 06 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">3 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 06</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2006&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2006%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2006&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2006%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-07.jpg" alt="Handgefertigte Handykette Handykette No. 07 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="7">
+          <button class="cardimg" type="button" data-index="7" aria-label="Alle Fotos von Handykette No. 07 ansehen">
+            <img src="assets/products/thumbs/p07-00.jpg" alt="Handgefertigte Handykette Handykette No. 07 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">3 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 07</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2007&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2007%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2007&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2007%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-08.jpg" alt="Handgefertigte Handykette Handykette No. 08 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="8">
+          <button class="cardimg" type="button" data-index="8" aria-label="Alle Fotos von Handykette No. 08 ansehen">
+            <img src="assets/products/thumbs/p08-00.jpg" alt="Handgefertigte Handykette Handykette No. 08 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">3 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 08</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2008&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2008%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2008&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2008%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-09.jpg" alt="Handgefertigte Handykette Handykette No. 09 von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="9">
+          <button class="cardimg" type="button" data-index="9" aria-label="Alle Fotos von Handykette No. 09 ansehen">
+            <img src="assets/products/thumbs/p09-00.jpg" alt="Handgefertigte Handykette Handykette No. 09 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">3 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Handykette No. 09</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Handykette%20No.%2009&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2009%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2009&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2009%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-10.jpg" alt="Handgefertigte Handykette Millefleurs von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="10">
+          <button class="cardimg" type="button" data-index="10" aria-label="Alle Fotos von Millefleurs ansehen">
+            <img src="assets/products/thumbs/p10-00.jpg" alt="Handgefertigte Handykette Millefleurs von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">4 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Millefleurs</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Millefleurs&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Millefleurs%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Millefleurs&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Millefleurs%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
-        <article class="card">
-          <img src="assets/products/img-11.jpg" alt="Handgefertigte Handykette Marittima von mariblume" loading="lazy" width="1200" height="1200">
+        <article class="card" data-index="11">
+          <button class="cardimg" type="button" data-index="11" aria-label="Alle Fotos von Marittima ansehen">
+            <img src="assets/products/thumbs/p11-00.jpg" alt="Handgefertigte Handykette Marittima von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">4 Fotos</span>
+          </button>
           <div class="card-body">
             <h3>Marittima</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Bestellung%3A%20Marittima&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Marittima%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Marittima&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Marittima%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="12">
+          <button class="cardimg" type="button" data-index="12" aria-label="Alle Fotos von Countess Violet ansehen">
+            <img src="assets/products/thumbs/p12-00.jpg" alt="Handgefertigte Handykette Countess Violet von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Countess Violet</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Countess%20Violet&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Countess%20Violet%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="13">
+          <button class="cardimg" type="button" data-index="13" aria-label="Alle Fotos von Sakura ansehen">
+            <img src="assets/products/thumbs/p13-00.jpg" alt="Handgefertigte Handykette Sakura von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Sakura</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Sakura&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Sakura%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="14">
+          <button class="cardimg" type="button" data-index="14" aria-label="Alle Fotos von Handykette No. 10 ansehen">
+            <img src="assets/products/thumbs/p14-00.jpg" alt="Handgefertigte Handykette Handykette No. 10 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 10</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2010&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2010%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="15">
+          <button class="cardimg" type="button" data-index="15" aria-label="Alle Fotos von Handykette No. 11 ansehen">
+            <img src="assets/products/thumbs/p15-00.jpg" alt="Handgefertigte Handykette Handykette No. 11 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 11</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2011&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2011%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="16">
+          <button class="cardimg" type="button" data-index="16" aria-label="Alle Fotos von Handykette No. 12 ansehen">
+            <img src="assets/products/thumbs/p16-00.jpg" alt="Handgefertigte Handykette Handykette No. 12 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 12</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2012&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2012%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="17">
+          <button class="cardimg" type="button" data-index="17" aria-label="Alle Fotos von Handykette No. 13 ansehen">
+            <img src="assets/products/thumbs/p17-00.jpg" alt="Handgefertigte Handykette Handykette No. 13 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">4 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 13</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2013&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2013%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="18">
+          <button class="cardimg" type="button" data-index="18" aria-label="Alle Fotos von Handykette No. 14 ansehen">
+            <img src="assets/products/thumbs/p18-00.jpg" alt="Handgefertigte Handykette Handykette No. 14 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 14</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2014&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2014%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="19">
+          <button class="cardimg" type="button" data-index="19" aria-label="Alle Fotos von Handykette No. 15 ansehen">
+            <img src="assets/products/thumbs/p19-00.jpg" alt="Handgefertigte Handykette Handykette No. 15 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">4 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 15</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2015&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2015%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="20">
+          <button class="cardimg" type="button" data-index="20" aria-label="Alle Fotos von Handykette No. 16 ansehen">
+            <img src="assets/products/thumbs/p20-00.jpg" alt="Handgefertigte Handykette Handykette No. 16 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">4 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 16</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2016&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2016%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="21">
+          <button class="cardimg" type="button" data-index="21" aria-label="Alle Fotos von Handykette No. 17 ansehen">
+            <img src="assets/products/thumbs/p21-00.jpg" alt="Handgefertigte Handykette Handykette No. 17 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 17</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2017&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2017%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="22">
+          <button class="cardimg" type="button" data-index="22" aria-label="Alle Fotos von Handykette No. 18 ansehen">
+            <img src="assets/products/thumbs/p22-00.jpg" alt="Handgefertigte Handykette Handykette No. 18 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 18</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2018&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2018%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="23">
+          <button class="cardimg" type="button" data-index="23" aria-label="Alle Fotos von Handykette No. 19 ansehen">
+            <img src="assets/products/thumbs/p23-00.jpg" alt="Handgefertigte Handykette Handykette No. 19 von mariblume" loading="lazy" decoding="async">
+            <span class="photocount">5 Fotos</span>
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 19</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2019&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2019%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
+          </div>
+        </article>
+        <article class="card" data-index="24">
+          <button class="cardimg" type="button" data-index="24" aria-label="Alle Fotos von Handykette No. 20 ansehen">
+            <img src="assets/products/thumbs/p24-00.jpg" alt="Handgefertigte Handykette Handykette No. 20 von mariblume" loading="lazy" decoding="async">
+            
+          </button>
+          <div class="card-body">
+            <h3>Handykette No. 20</h3>
+            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
+            <p class="price">Preis auf Anfrage</p>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Bestellung%3A%20Handykette%20No.%2020&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20Handykette%20No.%2020%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A">Per E-Mail bestellen</a>
           </div>
         </article>
       </div>
@@ -197,20 +418,20 @@
         <div class="step">
           <span class="num">1</span>
           <h3>Modell aussuchen</h3>
-          <p>In der Kollektion st&ouml;bern oder auf Instagram die neuesten St&uuml;cke entdecken.</p>
+          <p>In der Kollektion st&ouml;bern, Foto antippen f&uuml;r alle Ansichten, oder auf Instagram entdecken.</p>
         </div>
         <div class="step">
           <span class="num">2</span>
           <h3>Per E-Mail bestellen</h3>
           <p>Den Modellnamen in eine E-Mail an
-          <a href="mailto:marianne.blumentritt@gmail.com">marianne.blumentritt@gmail.com</a> schreiben,
+          <a href="mailto:info@mariblume.de">info@mariblume.de</a> schreiben,
           inkl. Lieferadresse. Ich antworte schnellstm&ouml;glich.</p>
         </div>
         <div class="step">
           <span class="num">3</span>
           <h3>Bezahlen &amp; Versand</h3>
-          <p>Bezahlung per <strong>PayPal</strong> (Zahlungslink wird noch erg&auml;nzt) oder nach Absprache.
-          Versand nach Zahlungseingang.</p>
+          <p>Bezahlung bequem per <strong>PayPal</strong> an <span class="paypalemail">marianne.blumentritt@gmail.com</span>
+          oder nach Absprache. Versand nach Zahlungseingang.</p>
         </div>
       </div>
     </section>
@@ -218,12 +439,11 @@
     <section class="contact" id="kontakt">
       <h2>Kontakt</h2>
       <p class="sub">Fragen zu Modellen, L&auml;ngen oder Sonderw&uuml;nschen? Einfach melden.</p>
-      <a class="btn" href="mailto:marianne.blumentritt@gmail.com?subject=Anfrage%20mariblume">E-Mail schreiben</a>
+      <a class="btn" href="mailto:info@mariblume.de?subject=Anfrage%20mariblume">E-Mail schreiben</a>
       <a class="btn outline" href="https://www.instagram.com/mariblume.germany/">Instagram ansehen</a>
-      <!-- PAYPAL-PLATZHALTER: Sobald ein PayPal-Me Link oder Spenden-/Zahlungslink vorliegt,
-           die naechste Zeile durch den echten Link ersetzen:
-           <a class="btn" href="https://www.paypal.com/paypalme/HIER-BENUTZERNAME-EINTRAGEN">Mit PayPal bezahlen</a> -->
-      <a class="btn disabled" aria-disabled="true">Mit PayPal bezahlen (Link folgt in K&uuml;rze)</a>
+      <p class="paynote">Bezahlen mit PayPal: einfach an <span class="paypalemail">marianne.blumentritt@gmail.com</span> senden
+      (Modellname in die Nachricht schreiben).</p>
+      <a class="btn outline" href="https://www.paypal.com/de/home" rel="noopener">PayPal &ouml;ffnen</a>
     </section>
 
   </main>
@@ -231,13 +451,67 @@
   <footer>
     <p>mariblume &middot; Handgefertigte Handyketten aus K&ouml;ln, Deutschland</p>
     <p><a href="https://www.instagram.com/mariblume.germany/">Instagram</a> &middot;
-       <a href="mailto:marianne.blumentritt@gmail.com">marianne.blumentritt@gmail.com</a></p>
+       <a href="mailto:info@mariblume.de">info@mariblume.de</a></p>
     <div class="legal">
       <p>Impressum: wird erg&auml;nzt &middot; Datenschutz: Diese Website verwendet keine Cookies und kein Tracking.</p>
       <!-- IMPRESSUM-TODO: Laut deutschem Recht (DDG &sect;5) braucht eine gewerbliche Website ein Impressum:
            Name, ladungsfaehige Anschrift, E-Mail, ggf. USt-IdNr. Bitte einmalig nachreichen, dann hier einsetzen. -->
     </div>
   </footer>
+
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Fotogalerie">
+    <span id="lbcounter"></span>
+    <button id="lbclose" class="lbx" aria-label="Schlie&szlig;en">&times;</button>
+    <figure><img id="lbimg" src="" alt=""></figure>
+    <div id="lbtitle"></div>
+    <button id="lbprev" class="lbx" aria-label="Vorheriges Foto">&#8249;</button>
+    <button id="lbnext" class="lbx" aria-label="N&auml;chstes Foto">&#8250;</button>
+  </div>
+
+  <script>
+    const PRODUCTS = [{"name": "Handykette No. 01", "photos": ["assets/products/p00-00.jpg", "assets/products/p00-01.jpg", "assets/products/p00-02.jpg", "assets/products/p00-03.jpg"]}, {"name": "Eclipsemania", "photos": ["assets/products/p01-00.jpg", "assets/products/p01-01.jpg", "assets/products/p01-02.jpg", "assets/products/p01-03.jpg", "assets/products/p01-04.jpg"]}, {"name": "Handykette No. 02", "photos": ["assets/products/p02-00.jpg", "assets/products/p02-01.jpg", "assets/products/p02-02.jpg", "assets/products/p02-03.jpg"]}, {"name": "Handykette No. 03", "photos": ["assets/products/p03-00.jpg", "assets/products/p03-01.jpg", "assets/products/p03-02.jpg", "assets/products/p03-03.jpg"]}, {"name": "Handykette No. 04", "photos": ["assets/products/p04-00.jpg", "assets/products/p04-01.jpg", "assets/products/p04-02.jpg", "assets/products/p04-03.jpg", "assets/products/p04-04.jpg", "assets/products/p04-05.jpg", "assets/products/p04-06.jpg"]}, {"name": "Handykette No. 05", "photos": ["assets/products/p05-00.jpg", "assets/products/p05-01.jpg", "assets/products/p05-02.jpg"]}, {"name": "Handykette No. 06", "photos": ["assets/products/p06-00.jpg", "assets/products/p06-01.jpg", "assets/products/p06-02.jpg"]}, {"name": "Handykette No. 07", "photos": ["assets/products/p07-00.jpg", "assets/products/p07-01.jpg", "assets/products/p07-02.jpg"]}, {"name": "Handykette No. 08", "photos": ["assets/products/p08-00.jpg", "assets/products/p08-01.jpg", "assets/products/p08-02.jpg"]}, {"name": "Handykette No. 09", "photos": ["assets/products/p09-00.jpg", "assets/products/p09-01.jpg", "assets/products/p09-02.jpg"]}, {"name": "Millefleurs", "photos": ["assets/products/p10-00.jpg", "assets/products/p10-01.jpg", "assets/products/p10-02.jpg", "assets/products/p10-03.jpg"]}, {"name": "Marittima", "photos": ["assets/products/p11-00.jpg", "assets/products/p11-01.jpg", "assets/products/p11-02.jpg", "assets/products/p11-03.jpg"]}, {"name": "Countess Violet", "photos": ["assets/products/p12-00.jpg", "assets/products/p12-01.jpg", "assets/products/p12-02.jpg", "assets/products/p12-03.jpg", "assets/products/p12-04.jpg"]}, {"name": "Sakura", "photos": ["assets/products/p13-00.jpg", "assets/products/p13-01.jpg", "assets/products/p13-02.jpg", "assets/products/p13-03.jpg", "assets/products/p13-04.jpg"]}, {"name": "Handykette No. 10", "photos": ["assets/products/p14-00.jpg", "assets/products/p14-01.jpg", "assets/products/p14-02.jpg", "assets/products/p14-03.jpg", "assets/products/p14-04.jpg"]}, {"name": "Handykette No. 11", "photos": ["assets/products/p15-00.jpg", "assets/products/p15-01.jpg", "assets/products/p15-02.jpg", "assets/products/p15-03.jpg", "assets/products/p15-04.jpg"]}, {"name": "Handykette No. 12", "photos": ["assets/products/p16-00.jpg", "assets/products/p16-01.jpg", "assets/products/p16-02.jpg", "assets/products/p16-03.jpg", "assets/products/p16-04.jpg"]}, {"name": "Handykette No. 13", "photos": ["assets/products/p17-00.jpg", "assets/products/p17-01.jpg", "assets/products/p17-02.jpg", "assets/products/p17-03.jpg"]}, {"name": "Handykette No. 14", "photos": ["assets/products/p18-00.jpg", "assets/products/p18-01.jpg", "assets/products/p18-02.jpg", "assets/products/p18-03.jpg", "assets/products/p18-04.jpg"]}, {"name": "Handykette No. 15", "photos": ["assets/products/p19-00.jpg", "assets/products/p19-01.jpg", "assets/products/p19-02.jpg", "assets/products/p19-03.jpg"]}, {"name": "Handykette No. 16", "photos": ["assets/products/p20-00.jpg", "assets/products/p20-01.jpg", "assets/products/p20-02.jpg", "assets/products/p20-03.jpg"]}, {"name": "Handykette No. 17", "photos": ["assets/products/p21-00.jpg", "assets/products/p21-01.jpg", "assets/products/p21-02.jpg", "assets/products/p21-03.jpg", "assets/products/p21-04.jpg"]}, {"name": "Handykette No. 18", "photos": ["assets/products/p22-00.jpg", "assets/products/p22-01.jpg", "assets/products/p22-02.jpg", "assets/products/p22-03.jpg", "assets/products/p22-04.jpg"]}, {"name": "Handykette No. 19", "photos": ["assets/products/p23-00.jpg", "assets/products/p23-01.jpg", "assets/products/p23-02.jpg", "assets/products/p23-03.jpg", "assets/products/p23-04.jpg"]}, {"name": "Handykette No. 20", "photos": ["assets/products/p24-00.jpg"]}];
+    const lb = document.getElementById('lightbox');
+    const lbimg = document.getElementById('lbimg');
+    const lbtitle = document.getElementById('lbtitle');
+    const lbcounter = document.getElementById('lbcounter');
+    const prev = document.getElementById('lbprev');
+    const next = document.getElementById('lbnext');
+    let cur = 0, idx = 0;
+
+    function show() {
+      const p = PRODUCTS[cur];
+      lbimg.src = p.photos[idx];
+      lbimg.alt = p.name + ' Foto ' + (idx + 1);
+      lbtitle.textContent = p.name;
+      lbcounter.textContent = (idx + 1) + ' / ' + p.photos.length;
+      const single = p.photos.length <= 1;
+      prev.style.display = single ? 'none' : 'flex';
+      next.style.display = single ? 'none' : 'flex';
+      const ahead = p.photos[idx + 1];
+      if (ahead) new Image().src = ahead;
+    }
+    function open(i) { cur = i; idx = 0; lb.classList.add('open'); document.body.classList.add('lb-open'); show(); }
+    function close() { lb.classList.remove('open'); document.body.classList.remove('lb-open'); lbimg.src = ''; }
+    function nav(d) { const n = PRODUCTS[cur].photos.length; idx = (idx + d + n) % n; show(); }
+
+    document.querySelectorAll('.cardimg').forEach(b => b.addEventListener('click', () => open(+b.dataset.index)));
+    document.getElementById('lbclose').addEventListener('click', close);
+    prev.addEventListener('click', () => nav(-1));
+    next.addEventListener('click', () => nav(1));
+    lb.addEventListener('click', e => { if (e.target === lb) close(); });
+    window.addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') nav(-1);
+      if (e.key === 'ArrowRight') nav(1);
+    });
+    let tx = 0, ty = 0;
+    lbimg.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive: true});
+    lbimg.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) nav(dx < 0 ? 1 : -1);
+    }, {passive: true});
+  </script>
 
 </body>
 </html>
