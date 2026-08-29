@@ -11,6 +11,8 @@ Live: https://andytai7.github.io/mariblume/
 
 ## New products from Instagram (automated)
 
+python3 tools/update_instagram.py
+
 `tools/update_instagram.py` scrapes the latest posts of @mariblume.germany and turns
 every **new** post (shortcode not yet in `instagram-state.json`) into a product card at
 the **top of "Kollektion"**: it downloads all photos of the post into

@@ -216,9 +216,9 @@ def render_card(post, name, cover_thumb, n_photos):
     n = html.escape(name)
     name_q = urllib.parse.quote(name)
     link = html.escape(post["permalink"], quote=True)
-    mailto = (f"mailto:info@mariblume.de?subject=Bestellung%3A%20{name_q}"
-              f"&body=Hallo%20Marianne%2C%0A%0Aich%20moechte%20die%20{name_q}"
-              f"%20bestellen.%0A%0ALieferadresse%3A%0A%0A%0AVielen%20Dank%21%0A")
+    mailto = (f"mailto:info@mariblume.de?subject=Anfrage%3A%20{name_q}"
+              f"&body=Hallo%20Marianne%2C%0A%0Aich%20interessiere%20mich%20fuer%20die%20{name_q}"
+              f".%20Ist%20sie%20noch%20verfuegbar%3F%0A%0AVielen%20Dank%21%0A")
     count = "1 Foto" if n_photos == 1 else f"{n_photos} Fotos"
     return [
         '        <article class="card" data-index="0">',
@@ -230,7 +230,7 @@ def render_card(post, name, cover_thumb, n_photos):
         f'            <h3>{n}</h3>',
         '            <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->',
         '            <p class="price">Preis auf Anfrage</p>',
-        f'            <a class="btn" href="{mailto}">Per E-Mail bestellen</a>',
+        f'            <a class="btn" href="{mailto}">Per E-Mail anfragen</a>',
         f'            <a class="btn outline" href="{link}" target="_blank" rel="noopener">Auf Instagram ansehen</a>',
         '          </div>',
         '        </article>',
