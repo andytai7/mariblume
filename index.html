@@ -14,7 +14,7 @@
   <link rel="icon" type="image/jpeg" href="assets/avatar.jpg">
   <style>
     :root {
-      --terra: #b4663f; --terra-dark: #93502f;
+      --accent: #7d7e80; --accent-dark: #626264;
       --sand: #f7f1e8; --cream: #fdfaf5;
       --ink: #3b2f27; --leaf: #66755a;
     }
@@ -28,13 +28,13 @@
 
     header { text-align: center; padding: 48px 20px 24px; background: var(--sand); }
     header img.avatar { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; box-shadow: 0 3px 12px rgba(0,0,0,.12); }
-    header h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 7vw, 2.6rem); color: var(--terra-dark); margin-top: 14px; letter-spacing: .5px; }
+    header h1 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 7vw, 2.6rem); color: var(--accent-dark); margin-top: 14px; letter-spacing: .5px; }
     header p.tag { color: var(--leaf); font-size: 1.05rem; margin-top: 4px; }
     .badge-row { margin-top: 14px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .badge { background: white; border: 1px solid #e3d8c8; border-radius: 999px; padding: 5px 14px; font-size: .82rem; color: var(--terra-dark); }
+    .badge { background: white; border: 1px solid #e3d8c8; border-radius: 999px; padding: 5px 14px; font-size: .82rem; color: var(--accent-dark); }
 
     section { padding: 44px 20px; }
-    h2 { font-family: Georgia, serif; color: var(--terra-dark); text-align: center; font-size: 1.7rem; margin-bottom: 6px; }
+    h2 { font-family: Georgia, serif; color: var(--accent-dark); text-align: center; font-size: 1.7rem; margin-bottom: 6px; }
     h2 + p.sub { text-align: center; color: #7a6a5d; margin-bottom: 28px; }
 
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; list-style: none; }
@@ -45,25 +45,25 @@
     .card-body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .card h3 { font-family: Georgia, serif; font-size: 1.05rem; color: var(--ink); }
     .price { color: var(--leaf); font-size: .9rem; }
-    .btn { margin-top: auto; display: inline-block; text-align: center; background: var(--terra); color: white; text-decoration: none; padding: 12px 14px; min-height: 46px; line-height: 1.4; border-radius: 9px; font-size: .95rem; font-weight: 600; }
-    .btn:hover { background: var(--terra-dark); }
-    .btn.outline { background: white; color: var(--terra-dark); border: 1.5px solid var(--terra); }
+    .btn { margin-top: auto; display: inline-block; text-align: center; background: var(--accent); color: white; text-decoration: none; padding: 12px 14px; min-height: 46px; line-height: 1.4; border-radius: 9px; font-size: .95rem; font-weight: 600; }
+    .btn:hover { background: var(--accent-dark); }
+    .btn.outline { background: white; color: var(--accent-dark); border: 1.5px solid var(--accent); }
     .btn.outline:hover { background: var(--sand); }
 
     .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
     .step { background: white; border: 1px solid #ece2d4; border-radius: 14px; padding: 22px; }
-    .step .num { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; background: var(--terra); color: white; border-radius: 50%; font-weight: 700; margin-bottom: 10px; }
+    .step .num { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; background: var(--accent); color: white; border-radius: 50%; font-weight: 700; margin-bottom: 10px; }
     .step h3 { font-family: Georgia, serif; margin-bottom: 6px; }
     .step p { font-size: .94rem; color: #5c4f44; }
-    a { color: var(--terra-dark); }
-    .paypalemail { display: inline-block; background: var(--sand); border: 1px dashed var(--terra); border-radius: 8px; padding: 4px 10px; margin-top: 6px; font-weight: 600; color: var(--terra-dark); }
+    a { color: var(--accent-dark); }
+    .paypalemail { display: inline-block; background: var(--sand); border: 1px dashed var(--accent); border-radius: 8px; padding: 4px 10px; margin-top: 6px; font-weight: 600; color: var(--accent-dark); }
 
     .contact { text-align: center; }
     .contact .btn { margin: 0 6px 10px; }
     .contact p.paynote { max-width: 560px; margin: 6px auto 16px; color: #5c4f44; font-size: .94rem; }
 
     footer { background: var(--sand); padding: 30px 20px 42px; text-align: center; font-size: .88rem; color: #7a6a5d; }
-    footer a { color: var(--terra-dark); }
+    footer a { color: var(--accent-dark); }
     .legal { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e3d8c8; }
 
     /* ---------- Lightbox ---------- */
@@ -76,7 +76,7 @@
     #lbcounter { position: absolute; top: calc(14px + env(safe-area-inset-top)); left: 16px; color: #cdbfae; font-size: .9rem; }
     .lbx { position: absolute; background: rgba(247,241,232,.18); color: #f7f1e8; border: 0; border-radius: 50%;
             width: 56px; height: 56px; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .lbx:active { background: var(--terra); }
+    .lbx:active { background: var(--accent); }
     #lbclose { top: calc(14px + env(safe-area-inset-top)); right: 16px; }
     #lbprev { left: calc(12px + env(safe-area-inset-left)); bottom: calc(24px + env(safe-area-inset-bottom)); }
     #lbnext { right: calc(12px + env(safe-area-inset-right)); bottom: calc(24px + env(safe-area-inset-bottom)); }
@@ -217,15 +217,15 @@
           </div>
         </article>
         <article class="card" data-index="9">
-          <button class="cardimg" type="button" data-index="9" aria-label="Alle Fotos von Fankette ansehen">
-            <img src="assets/products/thumbs/p09-00.jpg" alt="Handgefertigte Handykette Fankette von mariblume" loading="lazy" decoding="async">
+          <button class="cardimg" type="button" data-index="9" aria-label="Alle Fotos von Fanketten ansehen">
+            <img src="assets/products/thumbs/p09-00.jpg" alt="Handgefertigte Handykette Fanketten von mariblume" loading="lazy" decoding="async">
             <span class="photocount">4 Fotos</span>
           </button>
           <div class="card-body">
-            <h3>Fankette</h3>
+            <h3>Fanketten</h3>
             <!-- PREIS: Preis hier eintragen, z.B. <p class="price">24,00 &euro;</p> -->
             <p class="price">Preis auf Anfrage</p>
-            <a class="btn" href="mailto:info@mariblume.de?subject=Anfrage%3A%20Fankette&body=Hallo%20Marianne%2C%0A%0Aich%20interessiere%20mich%20fuer%20die%20Fankette.%20Ist%20sie%20noch%20verfuegbar%3F%0A%0AVielen%20Dank%21%0A">Per E-Mail anfragen</a>
+            <a class="btn" href="mailto:info@mariblume.de?subject=Anfrage%3A%20Fanketten&body=Hallo%20Marianne%2C%0A%0Aich%20interessiere%20mich%20fuer%20die%20Fanketten.%20Ist%20sie%20noch%20verfuegbar%3F%0A%0AVielen%20Dank%21%0A">Per E-Mail anfragen</a>
           </div>
         </article>
         <article class="card" data-index="10">
@@ -348,7 +348,7 @@
   </div>
 
   <script>
-    const PRODUCTS = [{"name": "Maroni", "photos": ["assets/products/p00-00.jpg", "assets/products/p00-01.jpg", "assets/products/p00-02.jpg"]}, {"name": "Mysterious Love", "photos": ["assets/products/p01-00.jpg", "assets/products/p01-01.jpg", "assets/products/p01-02.jpg"]}, {"name": "Orangina", "photos": ["assets/products/p02-00.jpg", "assets/products/p02-01.jpg", "assets/products/p02-02.jpg"]}, {"name": "Froschkönig", "photos": ["assets/products/p03-00.jpg", "assets/products/p03-01.jpg", "assets/products/p03-02.jpg"]}, {"name": "Taxi!", "photos": ["assets/products/p04-00.jpg", "assets/products/p04-01.jpg", "assets/products/p04-02.jpg"]}, {"name": "Shades of Blue", "photos": ["assets/products/p05-00.jpg", "assets/products/p05-01.jpg", "assets/products/p05-02.jpg"]}, {"name": "Café au Lait", "photos": ["assets/products/p06-00.jpg", "assets/products/p06-01.jpg", "assets/products/p06-02.jpg", "assets/products/p06-03.jpg", "assets/products/p06-04.jpg"]}, {"name": "Lady in Red", "photos": ["assets/products/p07-00.jpg", "assets/products/p07-01.jpg", "assets/products/p07-02.jpg"]}, {"name": "Marittima", "photos": ["assets/products/p08-00.jpg", "assets/products/p08-01.jpg", "assets/products/p08-02.jpg"]}, {"name": "Fankette", "photos": ["assets/products/p09-00.jpg", "assets/products/p09-01.jpg", "assets/products/p09-02.jpg", "assets/products/p09-03.jpg"]}, {"name": "Millefleurs", "photos": ["assets/products/p10-00.jpg", "assets/products/p10-01.jpg", "assets/products/p10-02.jpg"]}, {"name": "Darling Daisy", "photos": ["assets/products/p11-00.jpg", "assets/products/p11-01.jpg", "assets/products/p11-02.jpg"]}, {"name": "Waldmeisterin", "photos": ["assets/products/p12-00.jpg", "assets/products/p12-01.jpg", "assets/products/p12-02.jpg", "assets/products/p12-03.jpg"]}, {"name": "Countess Violet", "photos": ["assets/products/p13-00.jpg", "assets/products/p13-01.jpg", "assets/products/p13-02.jpg"]}, {"name": "Sakura", "photos": ["assets/products/p14-00.jpg", "assets/products/p14-01.jpg", "assets/products/p14-02.jpg"]}];
+    const PRODUCTS = [{"name": "Maroni", "photos": ["assets/products/p00-00.jpg", "assets/products/p00-01.jpg", "assets/products/p00-02.jpg"]}, {"name": "Mysterious Love", "photos": ["assets/products/p01-00.jpg", "assets/products/p01-01.jpg", "assets/products/p01-02.jpg"]}, {"name": "Orangina", "photos": ["assets/products/p02-00.jpg", "assets/products/p02-01.jpg", "assets/products/p02-02.jpg"]}, {"name": "Froschkönig", "photos": ["assets/products/p03-00.jpg", "assets/products/p03-01.jpg", "assets/products/p03-02.jpg"]}, {"name": "Taxi!", "photos": ["assets/products/p04-00.jpg", "assets/products/p04-01.jpg", "assets/products/p04-02.jpg"]}, {"name": "Shades of Blue", "photos": ["assets/products/p05-00.jpg", "assets/products/p05-01.jpg", "assets/products/p05-02.jpg"]}, {"name": "Café au Lait", "photos": ["assets/products/p06-00.jpg", "assets/products/p06-01.jpg", "assets/products/p06-02.jpg", "assets/products/p06-03.jpg", "assets/products/p06-04.jpg"]}, {"name": "Lady in Red", "photos": ["assets/products/p07-00.jpg", "assets/products/p07-01.jpg", "assets/products/p07-02.jpg"]}, {"name": "Marittima", "photos": ["assets/products/p08-00.jpg", "assets/products/p08-01.jpg", "assets/products/p08-02.jpg"]}, {"name": "Fanketten", "photos": ["assets/products/p09-00.jpg", "assets/products/p09-01.jpg", "assets/products/p09-02.jpg", "assets/products/p09-03.jpg"]}, {"name": "Millefleurs", "photos": ["assets/products/p10-00.jpg", "assets/products/p10-01.jpg", "assets/products/p10-02.jpg"]}, {"name": "Darling Daisy", "photos": ["assets/products/p11-00.jpg", "assets/products/p11-01.jpg", "assets/products/p11-02.jpg"]}, {"name": "Waldmeisterin", "photos": ["assets/products/p12-00.jpg", "assets/products/p12-01.jpg", "assets/products/p12-02.jpg", "assets/products/p12-03.jpg"]}, {"name": "Countess Violet", "photos": ["assets/products/p13-00.jpg", "assets/products/p13-01.jpg", "assets/products/p13-02.jpg"]}, {"name": "Sakura", "photos": ["assets/products/p14-00.jpg", "assets/products/p14-01.jpg", "assets/products/p14-02.jpg"]}];
     const lb = document.getElementById('lightbox');
     const lbimg = document.getElementById('lbimg');
     const lbtitle = document.getElementById('lbtitle');
