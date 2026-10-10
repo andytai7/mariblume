@@ -6,8 +6,9 @@ Live: https://andytai7.github.io/mariblume/
 
 ## Editing
 - Products: `index.html` section "kollektion", one `<article class="card">` per item (name, price, photo path in `assets/products/`).
+- Prices: every card shows `69,00 €` (`<p class="price">`); the automated import writes the same default.
 - PayPal link: search for "PAYPAL-PLATZHALTER" in `index.html`, swap in the real paypal.me URL.
-- Impressum: search for "IMPRESSUM-TODO" (legally required in Germany).
+- Impressum: footer `<details class="imprint">` — the "Impressum" link is shown, the address only appears after a click.
 
 ## New products from Instagram (automated)
 
